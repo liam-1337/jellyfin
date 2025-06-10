@@ -726,29 +726,6 @@ namespace Emby.Naming.Common
                 new Format3DRule("mvc")
             };
 
-            AudioBookPartsExpressions = new[]
-            {
-                // Detect specified chapters, like CH 01
-                @"ch(?:apter)?[\s_-]?(?<chapter>[0-9]+)",
-                // Detect specified parts, like Part 02
-                @"p(?:ar)?t[\s_-]?(?<part>[0-9]+)",
-                // Chapter is often beginning of filename
-                "^(?<chapter>[0-9]+)",
-                // Part if often ending of filename
-                "(?<!ch(?:apter) )(?<part>[0-9]+)$",
-                // Sometimes named as 0001_005 (chapter_part)
-                "(?<chapter>[0-9]+)_(?<part>[0-9]+)",
-                // Some audiobooks are ripped from cd's, and will be named by disk number.
-                @"dis(?:c|k)[\s_-]?(?<chapter>[0-9]+)"
-            };
-
-            AudioBookNamesExpressions = new[]
-            {
-                // Detect year usually in brackets after name Batman (2020)
-                @"^(?<name>.+?)\s*\(\s*(?<year>[0-9]{4})\s*\)\s*$",
-                @"^\s*(?<name>[^ ].*?)\s*$"
-            };
-
             MultipleEpisodeExpressions = new[]
             {
                 @".*(\\|\/)[sS]?(?<seasonnumber>[0-9]{1,4})[xX](?<epnumber>[0-9]{1,3})((-| - )[0-9]{1,4}[eExX](?<endingepnumber>[0-9]{1,3}))+[^\\\/]*$",
@@ -833,16 +810,6 @@ namespace Emby.Naming.Common
         /// Gets or sets list of video stub file extensions.
         /// </summary>
         public string[] StubFileExtensions { get; set; }
-
-        /// <summary>
-        /// Gets or sets list of raw audiobook parts regular expressions strings.
-        /// </summary>
-        public string[] AudioBookPartsExpressions { get; set; }
-
-        /// <summary>
-        /// Gets or sets list of raw audiobook names regular expressions strings.
-        /// </summary>
-        public string[] AudioBookNamesExpressions { get; set; }
 
         /// <summary>
         /// Gets or sets list of stub type rules.

@@ -64,6 +64,16 @@ Check out our <a href="https://translate.jellyfin.org">Weblate instance</a> to h
 
 ---
 
+## Lightweight Backend Version (Experimental)
+
+For developers interested in a streamlined backend focused primarily on **Movies and TV Shows**, a modified version of this codebase is available. This version has had several features (like Live TV, Music, Photos, and Books support) removed to reduce complexity.
+
+This is a **backend-only modification**. It's intended for those who might want to build a custom, lightweight user interface or use the API directly for a focused media experience.
+
+**For more details, including how to build and use this version, please see the [Jellyfin Lightweight Backend Guide](./docs/LIGHTWEIGHT_JELLYFIN_GUIDE.md).**
+
+---
+
 ## Jellyfin Server
 
 This repository contains the code for Jellyfin's backend server. Note that this is only one of many projects under the Jellyfin GitHub [organization](https://github.com/jellyfin/) on GitHub. If you want to contribute, you can start by checking out our [documentation](https://jellyfin.org/docs/general/contributing/index.html) to see what to work on.

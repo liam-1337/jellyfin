@@ -526,8 +526,6 @@ namespace Emby.Server.Implementations
             serviceCollection.AddSingleton<ILibraryManager, LibraryManager>();
             serviceCollection.AddSingleton<NamingOptions>();
 
-            serviceCollection.AddSingleton<IMusicManager, MusicManager>();
-
             serviceCollection.AddSingleton<ILibraryMonitor, LibraryMonitor>();
 
             serviceCollection.AddSingleton<ISearchEngine, SearchEngine>();
@@ -541,7 +539,6 @@ namespace Emby.Server.Implementations
             serviceCollection.AddSingleton<IMediaSourceManager, MediaSourceManager>();
 
             serviceCollection.AddSingleton<ISubtitleManager, SubtitleManager>();
-            serviceCollection.AddSingleton<ILyricManager, LyricManager>();
 
             serviceCollection.AddSingleton<IProviderManager, ProviderManager>();
 
@@ -670,13 +667,13 @@ namespace Emby.Server.Implementations
 
             Resolve<ILibraryManager>().AddParts(
                 GetExports<IResolverIgnoreRule>(),
-                GetExports<IItemResolver>(),
+                GetExports<IItemResolver>().Where(r => r.GetType().Name != "MusicAlbumResolver" && r.GetType().Name != "MusicArtistResolver" && r.GetType().Name != "AudioResolver" && r.GetType().Name != "PhotoAlbumResolver" && r.GetType().Name != "PhotoResolver" && r.GetType().Name != "BookResolver").ToList(),
                 GetExports<IIntroProvider>(),
                 GetExports<IBaseItemComparer>(),
-                GetExports<ILibraryPostScanTask>());
+                GetExports<ILibraryPostScanTask>().Where(t => t.GetType().Name != "ArtistsPostScanTask" && t.GetType().Name != "MusicGenresPostScanTask").ToList());
 
             Resolve<IProviderManager>().AddParts(
-                GetExports<IImageProvider>(),
+                GetExports<IImageProvider>().Where(p => p.GetType().Name != "ArtistImageProvider" && p.GetType().Name != "MusicAlbumImageProvider" && p.GetType().Name != "MusicGenreImageProvider" && p.GetType().Name != "PhotoAlbumImageProvider").ToList(),
                 GetExports<IMetadataService>(),
                 GetExports<IMetadataProvider>(),
                 GetExports<IMetadataSaver>(),
@@ -834,9 +831,6 @@ namespace Emby.Server.Implementations
 
             // Include composable parts in the Providers assembly
             yield return typeof(ProviderManager).Assembly;
-
-            // Include composable parts in the Photos assembly
-            yield return typeof(PhotoProvider).Assembly;
 
             // Emby.Server implementations
             yield return typeof(InstallationManager).Assembly;
