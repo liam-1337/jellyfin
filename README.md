@@ -64,13 +64,17 @@ Check out our <a href="https://translate.jellyfin.org">Weblate instance</a> to h
 
 ---
 
-## Lightweight Backend Version (Experimental)
+## Lightweight Version (Experimental)
 
-For developers interested in a streamlined backend focused primarily on **Movies and TV Shows**, a modified version of this codebase is available. This version has had several features (like Live TV, Music, Photos, and Books support) removed to reduce complexity.
+This repository contains modifications for a **streamlined Jellyfin backend** focused primarily on **Movies and TV Shows**. Several features (like Live TV, Music, Photos, and Books support) have been removed from the core backend code to reduce complexity. This is a backend-only modification.
 
-This is a **backend-only modification**. It's intended for those who might want to build a custom, lightweight user interface or use the API directly for a focused media experience.
+Additionally, a **conceptual strategy for a new, modern frontend UI** (inspired by Google's Material You / Apple design principles) tailored for this lightweight backend has been documented.
 
-**For more details, including how to build and use this version, please see the [Jellyfin Lightweight Backend Guide](./docs/LIGHTWEIGHT_JELLYFIN_GUIDE.md).**
+**Guides & Documentation:**
+*   **[Jellyfin Lightweight Backend Guide](./docs/LIGHTWEIGHT_JELLYFIN_GUIDE.md):** Details on the backend modifications, how to build it, and basic setup.
+*   **[Frontend Development Strategy](./docs/frontend_strategy/01_architecture_and_stack.md):** A conceptual plan for building a new frontend, including architecture, component design, API mapping, user flows, and theming guidance. (Note: Link points to the first document in the strategy series; the directory `docs/frontend_strategy/` contains all related files.)
+
+This initiative is intended for developers looking to work with a more focused Jellyfin backend or those interested in building a new, custom user interface.
 
 ---
 

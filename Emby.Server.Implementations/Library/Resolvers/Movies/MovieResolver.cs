@@ -439,9 +439,9 @@ namespace Emby.Server.Implementations.Library.Resolvers.Movies
                     Set3DFormat(movie);
                     return movie;
                 }
-                else if (supportPhotos && PhotoResolver.IsImageFile(child.FullName, _imageProcessor))
+                else if (supportPhotos /* && PhotoResolver.IsImageFile(child.FullName, _imageProcessor) */)
                 {
-                    photos.Add(child);
+                    // photos.Add(child); // PhotoResolver removed
                 }
             }
 
@@ -455,7 +455,7 @@ namespace Emby.Server.Implementations.Library.Resolvers.Movies
             if (!isPhotosCollection && result.Items.Count == 1)
             {
                 var videoPath = result.Items[0].Path;
-                var hasPhotos = photos.Any(i => !PhotoResolver.IsOwnedByResolvedMedia(videoPath, i.Name));
+                var hasPhotos = false; // photos.Any(i => !PhotoResolver.IsOwnedByResolvedMedia(videoPath, i.Name)); // PhotoResolver removed
                 var hasOtherSubfolders = multiDiscFolders.Count > 0;
 
                 if (!hasPhotos && !hasOtherSubfolders)

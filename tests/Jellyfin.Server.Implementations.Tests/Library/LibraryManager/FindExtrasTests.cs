@@ -5,7 +5,6 @@ using System.Linq;
 using AutoFixture;
 using AutoFixture.AutoMoq;
 using Emby.Naming.Common;
-using Emby.Server.Implementations.Library.Resolvers.Audio;
 using MediaBrowser.Controller.Configuration;
 using MediaBrowser.Controller.Entities;
 using MediaBrowser.Controller.Entities.Audio;
@@ -40,7 +39,7 @@ public class FindExtrasTests
         _fileSystemMock.Setup(f => f.GetFileInfo(It.IsAny<string>())).Returns<string>(path => new FileSystemMetadata { FullName = path });
         _libraryManager = fixture.Build<Emby.Server.Implementations.Library.LibraryManager>().Do(s => s.AddParts(
                 fixture.Create<IEnumerable<IResolverIgnoreRule>>(),
-                new List<IItemResolver> { new AudioResolver(fixture.Create<NamingOptions>()) },
+                new List<IItemResolver>(), // Removed AudioResolver
                 fixture.Create<IEnumerable<IIntroProvider>>(),
                 fixture.Create<IEnumerable<IBaseItemComparer>>(),
                 fixture.Create<IEnumerable<ILibraryPostScanTask>>()))
@@ -207,9 +206,9 @@ public class FindExtrasTests
         Assert.Equal(ExtraType.BehindTheScenes, extras[3].ExtraType);
         Assert.Equal(ExtraType.Sample, extras[4].ExtraType);
         Assert.Equal(ExtraType.ThemeSong, extras[5].ExtraType);
-        Assert.Equal(typeof(Audio), extras[5].GetType());
+        // Assert.Equal(typeof(Audio), extras[5].GetType()); // AudioResolver removed
         Assert.Equal(ExtraType.ThemeSong, extras[6].ExtraType);
-        Assert.Equal(typeof(Audio), extras[6].GetType());
+        // Assert.Equal(typeof(Audio), extras[6].GetType()); // AudioResolver removed
     }
 
     [Fact]
